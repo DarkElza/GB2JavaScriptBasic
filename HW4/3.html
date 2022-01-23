@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+</head>
+<body>
+<!--
+Необязательное задание.
+
+Необходимо создать функцию getDigitsOfNumber, которая принимает целое
+положительное число в диапазоне от 0 до 1000.
+Функция должна вернуть обычный объект с тремя свойствами:
+1. units - содержит число, количество единиц в параметре функции.
+2. dozens - содержит число, количество десятков в параметре функции.
+3. hundreds - содержит число, количество сотен в параметре функции.
+Если функции было передано не целое положительное число, либо число в ином
+диапазоне, нежели задано в условии, функция должна вывести в консоль информацию
+об ошибке и вернуть пустой объект.
+Необходимо также прописать jsdoc для данной функции.
+
+Подсказка:
+У объекта console есть разные методы, мы часто используем console.log для того
+чтобы вывести в консоль какое-то значение, однако есть и другие методы, найдите
+в интернете какие методы существуют и используйте "правильный метод" в нужном
+месте. Обратите внимание что функция не должна выбрасывать ошибку, она должна
+только вывести в консоль информацию о том, что что-то пошло не так.
+Обратите внимание на слова "от 0 до 1000", это означает диапазон [0, 999], что
+можно прочитать как "от нуля до 999 включительно".
+-->
+<script>
+    "use strict";
+
+    class DigitsOfNumber {
+        constructor(myNumber) {
+            this.units = '';
+            this.dozens = '';
+            this.hundreds = '';
+        }
+
+        makeDigits(myNumber) {
+            this.units = myNumber % 10;
+            this.dozens = Math.trunc(myNumber / 10) % 10;
+            this.hundreds = Math.trunc(myNumber / 100) % 10;
+        }
+    }
+
+    function getDigitsOfNumber(myNumber) {
+        if (myNumber === parseInt(myNumber, 10) && myNumber >0 && myNumber < 1000){
+            console.log("Введено правильное число")
+            digitsOfNumber.makeDigits(myNumber);
+        }else {
+            console.log(`Введеное ${myNumber} - это не целое положительное число в диапазоне от 0 до 1000`);
+        }
+        return digitsOfNumber;
+    }
+
+    //создаю пустой объект
+    const digitsOfNumber = new DigitsOfNumber();
+
+    //проверяем
+    console.log(getDigitsOfNumber(1));
+    console.log(getDigitsOfNumber(12));
+    console.log(getDigitsOfNumber(123));
+    console.log(getDigitsOfNumber(9874));
+    console.log(getDigitsOfNumber(-5));
+    console.log(getDigitsOfNumber(-6.7));
+    console.log(getDigitsOfNumber(8.9));
+    console.log(getDigitsOfNumber("1"));
+    console.log(getDigitsOfNumber("Число"));
+
+    // поскольку тема про классы, наверно эту функцию надо было добавить в класс?
+    // добавим в класс, создадим какой нибудь другой класс
+    class OtherDigitsOfNumber {
+        constructor(myNumber) {
+            this.units = '';
+            this.dozens = '';
+            this.hundreds = '';
+        }
+
+        getDigitsOfNumber(myNumber) {
+            if (myNumber === parseInt(myNumber, 10) && myNumber >0 && myNumber < 1000){
+                console.log("Введено правильное число")
+                this.units = myNumber % 10;
+                this.dozens = Math.trunc(myNumber / 10) % 10;
+                this.hundreds = Math.trunc(myNumber / 100) % 10;
+            }else {
+                console.log(`Введеное ${myNumber} - это не целое положительное число в диапазоне от 0 до 1000`);
+                this.units = '';
+                this.dozens = '';
+                this.hundreds = '';
+            }
+        }
+    }
+
+    //создаю пустой объект
+    const otherDigitsOfNumber = new OtherDigitsOfNumber();
+    //проверяем
+    otherDigitsOfNumber.getDigitsOfNumber(3);
+    console.log(otherDigitsOfNumber);
+    otherDigitsOfNumber.getDigitsOfNumber(45);
+    console.log(otherDigitsOfNumber);
+    otherDigitsOfNumber.getDigitsOfNumber(567);
+    console.log(otherDigitsOfNumber);
+    otherDigitsOfNumber.getDigitsOfNumber(9874);
+    console.log(otherDigitsOfNumber);
+    otherDigitsOfNumber.getDigitsOfNumber(-5);
+    console.log(otherDigitsOfNumber);
+    otherDigitsOfNumber.getDigitsOfNumber(-7.7);
+    console.log(otherDigitsOfNumber);
+    otherDigitsOfNumber.getDigitsOfNumber(9.9);
+    console.log(otherDigitsOfNumber);
+    otherDigitsOfNumber.getDigitsOfNumber("78");
+    console.log(otherDigitsOfNumber);
+    otherDigitsOfNumber.getDigitsOfNumber("Число");
+    console.log(otherDigitsOfNumber);
+
+
+
+</script>
+</body>
+</html>
