@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+<script>
+    "use strict";
+
+    /*базовый класс PostES6*/
+    class PostES6 {
+        constructor(name, textPost, datePost) {
+            this.name = name;
+            this.textPost = textPost;
+            this.datePost = datePost;
+        }
+
+        edit(newTextPost) {
+            this.textPost = newTextPost;
+            // скобках ставим просто дату для проверки что работает,
+            // так как оба объекта в данный момент вызываются в одни и ту же секунду
+            // на рабочем сайте считаю простановку даты средствами СУБД правильным
+            this.datePost = new Date('January 22, 2022 10:10:05');
+        }
+    }
+
+    // проверка работы экземпляра базового класса PostES6
+    const postES6 = new PostES6('Маша', 'Обожаю тундру в ноябре!', new Date());
+    console.log(postES6);
+    postES6.edit("Тундра прекрасна в любое время года!");
+    console.log(postES6);
+
+    //дочерний класс ProductES6
+    class AttachedPostES6 extends PostES6 {
+        constructor(name, textPost, datePost) {
+            super(name, textPost, datePost);
+            this.highlighted = false;
+        }
+
+        makeTextHighlighted() {
+            this.highlighted = true;
+        }
+    }
+
+    // проверка работы экземпляра дочернего класса AttachedPostES6
+    const attachedPostES6 = new AttachedPostES6('Даша', 'Море слишком мокрое!', new Date());
+    console.log(attachedPostES6);
+    attachedPostES6.edit("Реально, целое море воды!!");
+    console.log(attachedPostES6);
+    attachedPostES6.makeTextHighlighted();
+    console.log(attachedPostES6);
+
+
+    /*базовый класс PostES5*/
+    function PostES5(name, textPost, datePost) {
+        this.name = name;
+        this.textPost = textPost;
+        this.datePost = datePost;
+    }
+
+    PostES5.prototype.edit = function (newTextPost) {
+        this.textPost = newTextPost;
+        //потом надо будет поставить просто new Date();
+        this.datePost = new Date('January 22, 2022 10:10:05');
+    };
+
+    // проверка работы экземпляра базового класса PostES5
+    const postES5 = new PostES5('Паша', 'Котики правят миром!', new Date());
+    console.log(postES5);
+    postES5.edit("Котики - наше всё!");
+    console.log(postES5);
+
+    /*дочерний класс attachedPostES5*/
+    function AttachedPostES5(name, textPost, datePost) {
+        PostES5.call(this, name, textPost, datePost)
+        this.highlighted = false;
+    }
+
+    AttachedPostES5.prototype = Object.create(PostES5.prototype);
+
+    AttachedPostES5.prototype.makeTextHighlighted = function () {
+        this.highlighted = true;
+    };
+
+    // проверка работы экземпляра дочернего класса attachedPostES5
+    const attachedPostES5 = new AttachedPostES5('Иван', 'Параметры исследования импеданса', new Date());
+    console.log(attachedPostES5);
+    attachedPostES5.edit("Не хочу исследовать импеданс!!!");
+    console.log(attachedPostES5);
+    attachedPostES5.makeTextHighlighted();
+    console.log(attachedPostES5);
+
+</script>
+</body>
+</html>
